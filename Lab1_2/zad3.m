@@ -1,0 +1,1 @@
+values = importdata("skok_46.txt");
