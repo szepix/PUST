@@ -76,7 +76,13 @@ for k=kp:kk
     end
     Yo = MP*DUp+Y;
     DU = K*(Y_zad - Yo);
-    u(k)=u(k-1)+DU(1);   
+    u(k)=u(k-1)+DU(1); 
+    if(u(k)> 100)
+        u(k) = 100;
+    end
+    if(u(k)< 0)
+        u(k) = 0;
+    end
     wejscie_u(k)=u(k);
     wyjscie_y(k)=y(k); 
 end
