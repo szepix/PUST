@@ -1,0 +1,17 @@
+values = importdata("skok_46.txt");
+s = zeros(1,length(values));
+
+for i = 1:length(values)
+    s(i) = (values(i) - values(1))/20;
+end
+
+min_value = 1e9;
+Td_best = 0;
+for i=1:100 
+Td = i;
+[X] = fmincon(@aproksymacja, [3, 2, 1], [], []);
+if Error < min_value
+    min_value = Error;
+    Td_best = Td;
+end
+end
