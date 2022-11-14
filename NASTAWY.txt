@@ -1,0 +1,51 @@
+NASTAW 1:
+
+    Kp = 8.873;
+    Ti = 10.9556;
+    Td = 15.6741;
+
+NASTAW 2:
+    Kp = 8.87;
+    Ti = 10.9556;
+    Td = 1/15.6741;
+
+NASTAW 3:
+    Kp = 8.87;
+    Ti = 10.9556;
+    Td = 1;
+
+NASTAW 4:
+    Kp = 7;
+    Ti = 16;
+    Td = 0.5;
+    T = 1;
+
+NASTAW 5:
+    Kp = 5;
+    Ti = 20;
+    Td = 1;
+
+NASTAW 6:
+TAKIE SAME JAK 5
+
+
+DMC NASTAWY:
+NASTAW 1:
+    %Horyzonty
+    D = 400; %Horyzont Dynamiki
+    N= 220;    %Horyzont predykcji
+    Nu = 150; %Horyzont sterowania
+    lamb = 0.1;
+NASTAW 2:
+    %Horyzonty
+    D = 400; %Horyzont Dynamiki
+    N= 40;    %Horyzont predykcji
+    Nu = 40; %Horyzont sterowania
+    lamb = 0.3;
+NASTAW 3:
+    D = 400; %Horyzont Dynamiki
+    N= 20;    %Horyzont predykcji
+    Nu = 20; %Horyzont sterowania
+
+    %Współczynnik kary
+    lamb = 0.5;
