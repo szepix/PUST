@@ -21,7 +21,7 @@ clear all
     Nu = 20; %Horyzont sterowania
 
     %Współczynnik kary
-    lamb = 0.5;
+    lamb = 0.3;
     k = D+1;
     %War początkowe
     u(1:k) = 26; y(1:k) = 32;
@@ -99,8 +99,8 @@ clear all
         %%36 26 46 26 16
         addpoints(h,k-400,measurements);
         drawnow;
-        dlmwrite('DMC_NASTAW3.txt', measurements, '-append');
-        dlmwrite('DMC_NASTAW3_sterowanie.txt', u(k), '-append');
+        dlmwrite('DMC_NASTAW4.txt', measurements, '-append');
+        dlmwrite('DMC_NASTAW4_sterowanie.txt', u(k), '-append');
         k = k + 1;
         
         %% synchronising with the control process
