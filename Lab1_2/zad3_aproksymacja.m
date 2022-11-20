@@ -33,7 +33,7 @@ xlim([0, 500]);
 title("Odpowiedz skokowa")
 ylabel("T [C]")
 xlabel("t [s]")
-legend("Odpowiedź obiektu", "Odpowiedź aproksymowana", Location="southeast");
+legend("Odpowiedź obiektu", "Odpowiedź aproksymowana", "Location", "southeast");
 set(get(gca,'ylabel'),'rotation',0)
 exportgraphics(gca,'odp_skok_aproksymowana.pdf')
 

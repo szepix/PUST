@@ -1,10 +1,18 @@
 clear all
 
-values = importdata("Punkt_Pracy.txt");
-
+values = importdata("DMC_NASTAWY_3_sterowanie.txt");
+y_zad(1:500) = 35;
+y_zad(500:1000) = 30;
+for i=1:length(values)
+e(i) = values(i) - y_zad(i);
+end
+Blad=(norm(e))^2
 plot(values)
-title("Punktu pracy")
-ylabel("T [C]")
-xlabel("t [s]")
+% hold on
+% plot(y_zad)
+% hold off
+ylabel("U")
+xlabel("k")
+% title("E = " + Blad); 
 set(get(gca,'ylabel'),'rotation',0)
-exportgraphics(gca,'Punkt_Pracy.pdf')
+exportgraphics(gca,'DMC_NASTAWY_3_sterowanie.pdf')

@@ -19,18 +19,18 @@ Td = 10;
 %Horyzonty
 D = 400; %Horyzont Dynamiki
 N= 220;    %Horyzont predykcji
-Nu = 2; %Horyzont sterowania
+Nu = 100; %Horyzont sterowania
 
 %Współczynnik kary
-lamb = 1;
+lamb = 0.1;
 
 kk = 2000; %koniec symulacji
 kp = max(13,D+1); %początek symulacji
 ks = max(19,D+7); %chwila skoku wartosci zadania
 
 %War początkowe
-u(1:kp) = 0; y(1:kp) = 0;
-yzad(1:ks)=0; yzad(ks:kk)=1;
+u(1:kp) = 26; y(1:kp) = 33;
+yzad(1:ks)=33; yzad(ks:kk)=35;
 e(1:kp) = 0;
 
 %Macierz M
