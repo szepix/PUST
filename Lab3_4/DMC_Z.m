@@ -66,7 +66,7 @@ for i=1:N
       if i+j<=Dz
       MZP(i,j)=s_z(i+j)-s_z(j);
       else
-      MZP(i,j)=s(Dz)-s(j);
+      MZP(i,j)=s_z(Dz)-s_z(j);
       end
    end
 end
