@@ -1,0 +1,85 @@
+DMC1:
+lambda = 0.30
+D = 400; %Horyzont Dynamiki
+Dz = 400; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+
+DMC2 = lambda 0.25
+D = 400; %Horyzont Dynamiki
+Dz = 400; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+DMC3:
+lambda 0.25
+D = 400; %Horyzont Dynamiki
+Dz = 200; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+DMC4:
+%Horyzonty
+D = 400; %Horyzont Dynamiki
+Dz = 300; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+%Współczynnik kary
+lamb = 0.2;
+
+DMC5:
+%Horyzonty
+D = 400; %Horyzont Dynamiki
+Dz = 50; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+%Współczynnik kary
+lamb = 0.2;
+
+DMC6:
+%Horyzonty
+D = 400; %Horyzont Dynamiki
+Dz = 100; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+%Współczynnik kary
+lamb = 0.2;
+
+DMC7 bez zaklocenia:
+D = 400; %Horyzont Dynamiki
+Dz = 100; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+%Współczynnik kary
+lamb = 0.5;
+
+DMC8 bez zaklocenia:
+D = 400; %Horyzont Dynamiki
+Dz = 100; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+
+%Współczynnik kary
+lamb = 0.2;
+
+DMC9:
+%Horyzonty
+D = 400; %Horyzont Dynamiki
+Dz = 350; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+%Współczynnik kary
+lamb = 0.2;
+
+DMC10:
+%Horyzonty
+D = 400; %Horyzont Dynamiki
+Dz = 150; %Horyzont Dynamiki toru Z
+N= 40;    %Horyzont predykcji
+Nu = 40; %Horyzont sterowania
+%Współczynnik kary
+lamb = 0.2;
