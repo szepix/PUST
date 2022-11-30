@@ -4,14 +4,14 @@ clear all; clc;
 Tp = 0.5; %Czas próbkowania
 D = 150; %Horyzont Dynamiki
 Dz = 50; %Horyzont Dynamiki toru Z
-N= 80;    %Horyzont predykcji
-Nu = 5; %Horyzont sterowania
+N= 15;    %Horyzont predykcji
+Nu = 7; %Horyzont sterowania
 
 s = load("Odp_skokowe\odp_skok_u.mat").Y;
 s_z = load("Odp_skokowe\odp_skok_z.mat").Y;
 
 %Współczynnik kary
-lamb = 14;
+lamb = 4;
 
 %Czas trwania symulacji
 kp = D+1; %początek symulacji
@@ -27,8 +27,8 @@ yzad(1:150) = 0;
 yzad(150:kk) = 1;
 
 %Skoki zakłócenia
-Z(1:kk) = 0;
-Z(400:kk) = 1;
+z(1:kk) = 0;
+z(400:kk) = 1;
 
 
 %Macierz M
@@ -67,9 +67,8 @@ end
 
 K = ((M'*M + lamb * eye(Nu))^(-1))* M';
 DUp = zeros(D-1, 1);
-dZ = zeros(Dz-1, 1);
+dz = zeros(Dz-1, 1);
 Y = zeros(N,1);
-Z_war = 0;
 
 e = 0;
 
@@ -96,10 +95,11 @@ for k=kp:kk
     end
     
     for n = 1:Dz-1
-        dZ(n) = Z(k-n) - Z(k-n-1); 
+        dz(n) = z(k-n) - z(k-n-1); 
     end
 
-    Yo = MP*DUp+Y+MZP*dZ;
+    Yo = MP*DUp+Y+MZP*dz;
+%     Yo = MP*DUp+Y;
 
     DU = K*(Y_zad - Yo);
     u(k)=u(k-1)+DU(1);  
