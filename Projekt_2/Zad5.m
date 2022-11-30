@@ -3,7 +3,7 @@ clear all; clc;
 
 Tp = 0.5; %Czas próbkowania
 D = 100; %Horyzont Dynamiki
-Dz = 30; %Horyzont Dynamiki toru Z
+Dz = 0; %Horyzont Dynamiki toru Z
 N= 30;    %Horyzont predykcji
 Nu = 3; %Horyzont sterowania
 
@@ -13,11 +13,11 @@ s_z = load("Odp_skokowe\odp_skok_z.mat").Y;
 %Współczynnik kary
 lamb = 2.5;
 
-sav = false;
+sav = true;
 
 %Czas trwania symulacji
 kp = D+1; %początek symulacji
-kk = 500; %koniec symulacji
+kk = 800; %koniec symulacji
 
 %Warunki początkowe
 u(1:kp) = 0; 
@@ -30,7 +30,7 @@ yzad(kp+50:kk) = 1;
 
 %Skoki zakłócenia
 z(1:kk) = 0;
-%z(400:kk) = 1;
+z(400:kk) = 1;
 
 
 %Macierz M
@@ -111,28 +111,30 @@ for k=kp:kk
 end
 display(e)
 
-iteracja = 0:1:kk-1;  
-%Plot wyjście
-figure;
-stairs(iteracja, y)
-hold on;
-stairs(iteracja, yzad,"--");
-stairs(iteracja,z,"--")
-hold off;
-title("Odpowiedz skokowa ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
-xlabel('k'); ylabel("y");
-xlim([0 500])
-legend("y","y_z_a_d", "Location", "northeast")
-name = sprintf("%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb);
-if sav
-exportgraphics(gca,name)
-end
 %Plot sterowanie
-figure;
-stairs(iteracja, u)
-title("Sterowanie ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
-xlabel('k'); ylabel("u");
-name = sprintf("%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb);
+
+f = figure;
+subplot(3,1,1)
+stairs(1:kk,y)
+hold on
+stairs(1:kk,yzad,"--")
+xlabel("k")
+ylabel("y")
+title("Odpowiedz skokowa ukladu z regulatorem DMC oraz z  zakloceniem" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e + " Dz = " + Dz)
+
+subplot(3,1,2)
+stairs(1:kk,u)
+xlabel("k")
+ylabel("u")
+title("Sterowanie")
+
+subplot(3,1,3)
+stairs(1:kk,z)
+xlabel("k")
+ylabel("z")
+title("Zaklocenie")
+ylim([-1 2])
 if sav
-exportgraphics(gca,name)
+    name = sprintf("Zakl_DMC_Dz_%i.pdf",Dz);
+    exportgraphics(f,name)
 end
