@@ -1,7 +1,7 @@
 function MinimalWorkingExample()
     addpath('D:\SerialCommunication'); % add a path to the functions
     initSerialControl COM2% initialise com port
-    W1 = 100;
+    W1 = 50;
     G1 = 26;
     Z = 0;
     h = animatedline('Marker','o');

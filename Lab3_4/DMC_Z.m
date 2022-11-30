@@ -25,12 +25,12 @@ end
 
 %Horyzonty
 D = 400; %Horyzont Dynamiki
-Dz = 400; %Horyzont Dynamiki toru Z
+Dz = 150; %Horyzont Dynamiki toru Z
 N= 40;    %Horyzont predykcji
 Nu = 40; %Horyzont sterowania
 
 %Współczynnik kary
-lamb = 0.35;
+lamb = 0.2;
 k = D+1;
 %War początkowe
 u(1:k) = 26; y(1:k) = 32;
@@ -66,7 +66,7 @@ for i=1:N
       if i+j<=Dz
       MZP(i,j)=s_z(i+j)-s_z(j);
       else
-      MZP(i,j)=s(Dz)-s(j);
+      MZP(i,j)=s_z(Dz)-s_z(j);
       end
    end
 end
@@ -89,8 +89,12 @@ while(1)
     %symulacja obiektu
     y(k)=measurements;
     %zakłócenie
-    if(y(k) >= yzad(k))
+    if(k >= D+1+150 && k <= D+1+200)
         Z_war = 30;
+    elseif (k >= D+1+450 && k <= D+1+500)
+        Z_war = 30;
+    else
+        Z_war = 0;
     end
     Z(k) = Z_war;
     disp(Z_war);
@@ -107,7 +111,7 @@ while(1)
     for n = 1:Dz-1
         dZ(n) = Z(k-n) - Z(k-n-1); 
     end
-%     dz=Z(k)-Z(k-1);
+    dz=Z(k)-Z(k-1);
     Yo = MP*DUp+Y+MZP*dZ;
 %     Yo = MP*DUp+Y;
     DU = K*(Y_zad - Yo);
@@ -125,8 +129,8 @@ while(1)
 
     %% sending new values of control signals
 %     sendControlsToG1AndDisturbance
-%     dlmwrite('DMC_NASTAWY_2_Z30.txt', measurements, '-append');
-%     dlmwrite('DMC_NASTAWY_2_Z30_STEROWANIE.txt', wejscie_u(k), '-append');
+    dlmwrite('DMC_NASTAWY_POPRAWIONE10_Z30.txt', measurements, '-append');
+    dlmwrite('DMC_NASTAWY_POPRAWIONE10_Z30_STEROWANIE.txt', wejscie_u(k), '-append');
     sendControls([ 1, 2, 3, 4, 6], ... send for these elements
                  [W1, 0, 0, 0, 0]);  % new corresponding control values
     sendControlsToG1AndDisturbance(wejscie_u(k), Z(k));
