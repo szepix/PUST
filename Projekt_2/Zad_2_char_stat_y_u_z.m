@@ -23,22 +23,24 @@ Y(1:kp,1) = Ypp;
 Z(1:kp) = Zpp;
 
 for i = 1:kk
-    U(kp:kk)=i*0.02;
+    U(kp:kk)=i*0.01;
     
     for j = 1:kk
-        Z(kp:kk)=i*0.02;
+        Z(kp:kk)=i*0.01;
 
         for k = kp:kk
             Y(k) = symulacja_obiektu1y_p2(U(k-6),U(k-7),Z(k-3),Z(k-4),Y(k-1),Y(k-2));
         end
+
         z_stat(j) = Z(kk);
         y_stat(i,j) = Y(kk);
     end
     u_stat(i) = U(kk);
+
 end
 %% Plot
 
-plot3(u_stat,z_stat,y_stat,"r")
+surf(u_stat,z_stat,y_stat)
 xlabel("u")
 ylabel("z")
 zlabel("y")
