@@ -20,7 +20,7 @@ Zpp = 0;
 set(0,'DefaultStairLineWidth',1);
 U(1:kk,1) = Upp;
 Y(1:kp,1) = Ypp;
-Z(1:kp) = Zpp;
+Z(1:kp,1) = Zpp;
 
 for i = 1:kk
     U(kp:kk)=i*0.01;
