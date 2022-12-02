@@ -29,9 +29,8 @@ kp = max(13,D+1); %początek symulacji
 ks = max(19,D+7); %chwila skoku wartosci zadania
 k = D+1;
 %War początkowe
-u(1:kp) = 0; y(1:kp) = 0;
-yzad(k:500+k) = 1;
-yzad(500+k:1000+k) = 1;
+u(1:kp) = 26; y(1:kp) = 33;
+yzad(k:500+k) = 35;
 e(1:kp) = 0;
 
 %Macierz M

@@ -32,7 +32,7 @@ for i = 1:kk
             Y(k) = symulacja_obiektu1y_p2(U(k-6),U(k-7),Z(k-3),Z(k-4),Y(k-1),Y(k-2));
         end
 
-        z_stat(j) = Z(kk);
+        z_stat(i, j) = Z(kk);
         y_stat(i,j) = Y(kk);
     end
     u_stat(i) = U(kk);
@@ -40,7 +40,9 @@ for i = 1:kk
 end
 %% Plot
 
-surf(u_stat,z_stat,y_stat)
+h = surf(u_stat,z_stat,y_stat)
+set(h,'LineStyle','none')
+colormap winter;
 xlabel("u")
 ylabel("z")
 zlabel("y")

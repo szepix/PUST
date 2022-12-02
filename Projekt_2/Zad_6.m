@@ -2,17 +2,17 @@ clear all; clc;
 %% Parametry Regulatora
 
 Tp = 0.5; %Czas próbkowania
-D = 100; %Horyzont Dynamiki
-Dz = 100; %Horyzont Dynamiki toru Z
+D = 150; %Horyzont Dynamiki
+Dz = 50; %Horyzont Dynamiki toru Z
 N= 30;    %Horyzont predykcji
 Nu = 3; %Horyzont sterowania
 
 s = load("Odp_skokowe\odp_skok_u.mat").Y;
-
-%Odp skokowa na sygnał sinusoidalny trza wygenerować
+s_z = load("Odp_skokowe\odp_skok_z.mat").Y;
 
 %Współczynnik kary
-lamb = 2.5;
+lamb = 7;
+
 
 sav = false;
 
@@ -30,8 +30,9 @@ yzad(1:kp) = 0;
 yzad(kp+50:kk) = 1;
 
 %Skoki zakłócenia
+% Z(T_z+1:n)=5*sin(linspace(0,1,n-T_z));
 z(1:kk) = 0;
-z(400:kk) = 1;
+% z(400:kk) = 1;
 
 
 %Macierz M
@@ -91,7 +92,9 @@ for k=kp:kk
     for n=1:N
         Y(n) = y(k);
     end
-    
+    if(y(k)>yzad(k))
+        z(k:kk) = 1;
+    end
     %DMC
     for n = 1:D-1
         DUp(n) = u(k-n) - u(k-n-1);

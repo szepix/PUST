@@ -2,8 +2,8 @@ clear all; clc;
 %% Parametry Regulatora
 
 Tp = 0.5; %Czas próbkowania
-D = 100; %Horyzont Dynamiki
-Dz = 0; %Horyzont Dynamiki toru Z
+D = 150; %Horyzont Dynamiki
+Dz = 50; %Horyzont Dynamiki toru Z
 N= 30;    %Horyzont predykcji
 Nu = 3; %Horyzont sterowania
 
@@ -11,7 +11,7 @@ s = load("Odp_skokowe\odp_skok_u.mat").Y;
 s_z = load("Odp_skokowe\odp_skok_z.mat").Y;
 
 %Współczynnik kary
-lamb = 2.5;
+lamb = 7;
 
 sav = true;
 
@@ -30,7 +30,7 @@ yzad(kp+50:kk) = 1;
 
 %Skoki zakłócenia
 z(1:kk) = 0;
-z(400:kk) = 1;
+% z(400:kk) = 1;
 
 
 %Macierz M
@@ -86,6 +86,9 @@ for k=kp:kk
     %symulacja obiektu
     y(k) = symulacja_obiektu1y_p2(u(k-6),u(k-7),z(k-3),z(k-4),y(k-1),y(k-2));
     
+    if(y(k)>yzad(k))
+        z(k:kk) = 1;
+    end
     %stała trajektoria referencyjna
     for n=1:N
         Y(n) = y(k);

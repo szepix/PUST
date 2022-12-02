@@ -3,7 +3,7 @@ clear all; clc;
 
 Tp = 0.5; %Czas próbkowania
 D = 150; %Horyzont Dynamiki
-Dz = 60; %Horyzont Dynamiki toru Z
+Dz = 70; %Horyzont Dynamiki toru Z
 N= 30;    %Horyzont predykcji
 Nu = 3; %Horyzont sterowania
 
@@ -13,11 +13,12 @@ s_z = load("Odp_skokowe\odp_skok_z.mat").Y;
 %Współczynnik kary
 lamb = 7;
 
+
 sav = true;
 
 %Czas trwania symulacji
 kp = D+1; %początek symulacji
-kk = 500; %koniec symulacji
+kk = 800; %koniec symulacji
 
 %Warunki początkowe
 u(1:kp) = 0; 
@@ -29,9 +30,11 @@ yzad(1:kp) = 0;
 yzad(kp+50:kk) = 1;
 
 %Skoki zakłócenia
+% Z(1:kk)=sin(linspace(0,pi*10,kk));
 z(1:kk) = 0;
-%z(400:kk) = 1;
-
+% zaklocenie = wgn(1,kk,-40);
+Z(1:kk) = 0;
+% z(400:kk) = 1;
 
 %Macierz M
 M=zeros(N,Nu);
@@ -73,7 +76,9 @@ dz = zeros(Dz-1, 1);
 Y = zeros(N,1);
 
 e = 0;
-
+reached = 0;
+when_reached = 1;
+moc = 3;
 %% Głowne wykonanie programu
 
 for k=kp:kk
@@ -90,14 +95,22 @@ for k=kp:kk
     for n=1:N
         Y(n) = y(k);
     end
-    
+    if(y(k)>yzad(k) && k>kp+50 && reached == 0)
+        z(k:kk) = 1;
+        zaklocenie = load("Odp_skokowe/prbs").ans*moc;
+        Z(k:kk) = zaklocenie(k:kk);
+        reached = 1;
+    end
+    if(reached == 1)
+        Z(k) = z(k)+Z(k);
+    end
     %DMC
     for n = 1:D-1
         DUp(n) = u(k-n) - u(k-n-1);
     end
     
     for n = 1:Dz-1
-        dz(n) = z(k-n) - z(k-n-1); 
+        dz(n) = Z(k-n) - Z(k-n-1); 
     end
 
     Yo = MP*DUp+Y+MZP*dz;
@@ -111,28 +124,30 @@ for k=kp:kk
 end
 display(e)
 
-iteracja = 0:1:kk-1;  
-%Plot wyjście
-figure;
-stairs(iteracja, y)
-hold on;
-stairs(iteracja, yzad,"--");
-stairs(iteracja,z,"--")
-hold off;
-title("Odpowiedz skokowa ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
-xlabel('k'); ylabel("y");
-xlim([0 500])
-legend("y","y_z_a_d", "Location", "northeast")
-name = sprintf("%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb);
-if sav
-exportgraphics(gca,name)
-end
 %Plot sterowanie
-figure;
-stairs(iteracja, u)
-title("Sterowanie ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
-xlabel('k'); ylabel("u");
-name = sprintf("%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb);
+
+f = figure;
+subplot(3,1,1)
+stairs(1:kk,y)
+hold on
+stairs(1:kk,yzad,"--")
+xlabel("k")
+ylabel("y")
+title("Odpowiedz skokowa ukladu z regulatorem DMC oraz z zakloceniem sinusoidalnym" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e + " Dz = " + Dz + newline+ "Wzmocnienie szumu = " + moc)
+
+subplot(3,1,2)
+stairs(1:kk,u)
+xlabel("k")
+ylabel("u")
+title("Sterowanie")
+
+subplot(3,1,3)
+stairs(1:kk,Z)
+xlabel("k")
+ylabel("z")
+title("Zaklocenie")
+ylim([-1 2])
 if sav
-exportgraphics(gca,name)
+    name = sprintf("Zakl_DMC_prbs_Dz_%i_moc_%i.pdf",Dz, moc);
+    exportgraphics(f,name)
 end

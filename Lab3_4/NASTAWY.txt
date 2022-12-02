@@ -1,23 +1,24 @@
 DMC1:
-lambda = 0.30
+lambda = 0.30 ODPADA
 D = 400; %Horyzont Dynamiki
 Dz = 400; %Horyzont Dynamiki toru Z
 N= 40;    %Horyzont predykcji
 Nu = 40; %Horyzont sterowania
 
 
-DMC2 = lambda 0.25
+DMC2 = lambda 0.25 ODPADA
 D = 400; %Horyzont Dynamiki
 Dz = 400; %Horyzont Dynamiki toru Z
 N= 40;    %Horyzont predykcji
 Nu = 40; %Horyzont sterowania
 
 DMC3:
-lambda 0.25
+lambda 0.25 ODPADA
 D = 400; %Horyzont Dynamiki
 Dz = 200; %Horyzont Dynamiki toru Z
 N= 40;    %Horyzont predykcji
 Nu = 40; %Horyzont sterowania
+
 DMC4:
 %Horyzonty
 D = 400; %Horyzont Dynamiki
@@ -66,7 +67,7 @@ Nu = 40; %Horyzont sterowania
 %Współczynnik kary
 lamb = 0.2;
 
-DMC9:
+DMC9: ODPADA
 %Horyzonty
 D = 400; %Horyzont Dynamiki
 Dz = 350; %Horyzont Dynamiki toru Z

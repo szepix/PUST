@@ -8,16 +8,21 @@ for i = 1:500
     s(i) = (values(i) - values(1))/20;
 end
 
+values_z = importdata("skok_z_30.txt");
+s_z = zeros(1,400);
+for i=1:400
+    s_z(i) = (values(i) - values(1))/30;
+end
+
 %Parametry modelu
 b2 = 0.0015;
 b1 = 9.7778e-04;
 a2 = 0.3195;
 a1 = -1.3121;
 
-Td = 10;
-
 %Horyzonty
 D = 400; %Horyzont Dynamiki
+Dz = 400; %Horyzont Dynamiki toru Z
 N= 20;    %Horyzont predykcji
 Nu = 20; %Horyzont sterowania
 
@@ -56,8 +61,35 @@ for i=1:N
    end
 end
 
+MZP = zeros(N, Dz-1);
+for i=1:N
+   for j=1:Dz-1
+      if i+j<=Dz
+      MZP(i,j)=s_z(i+j)-s_z(j);
+      else
+      MZP(i,j)=s(Dz)-s(j);
+      end
+   end
+end
+
 K = ((M'*M + lamb * eye(Nu))^(-1))* M';
 DUp = zeros(D-1, 1);
+dZ = zeros(Dz-1, 1);
+Z = zeros(k+1000,1);
+Z(k+300:k+450) = 30;
+
+T1 = 5.7461;
+T2 = 77.9459;
+K=0.1415;
+Td=10;
+alpha1 = exp(-1/T1);
+alpha2 = exp(-1/T2);
+a1_z = -alpha1-alpha2;
+a2_z = alpha1 * alpha2;
+b1_z = K*(T1*(1-alpha1)-T2*(1-alpha2))/(T1-T2);
+b2_z = K*(alpha1*T2*(1-alpha2)-alpha2*T1*(1-alpha1))/(T1-T2);
+
+
 Y = zeros(N,1);
 %główne wykonanie programu
 for k=kp:kk
@@ -66,7 +98,9 @@ for k=kp:kk
         Y_zad(n,1) = yzad(k);
     end
     %symulacja obiektu
-    y(k)=b1*u(k-Td - 1)+b2*u(k-Td - 2)-a1*y(k-1)-a2*y(k-2);
+    y(k)=b1*u(k-Td - 1)+b2*u(k-Td - 2)-a1*y(k-1)-a2*y(k-2)+b1_z*Z(k-Td - 1)+b2_z*Z(k-Td - 2);
+%     y(k) = y(k) + y_z(k);
+
     %stała trajektoria referencyjna
     for n=1:N
         Y(n) = y(k);
@@ -75,7 +109,10 @@ for k=kp:kk
     for n = 1:D-1
         DUp(n) = u(k-n) - u(k-n-1);
     end
-    Yo = MP*DUp+Y;
+    for n = 1:Dz-1
+        dZ(n) = Z(k-n) - Z(k-n-1); 
+    end
+    Yo = MP*DUp+Y+MZP*dZ;
     DU = K*(Y_zad - Yo);
     u(k)=u(k-1)+DU(1); 
     if(u(k)> 100)
@@ -110,3 +147,5 @@ xlabel('k'); ylabel("u");
 legend("Sterowanie regulatora", "Location", "best")
 name2 = "zad5_DMC_u_D"+D+"_N"+N+"_Nu"+Nu+"_L"+lamb;
 % print(name2,'-dpng','-r400')
+figure
+plot(Z)
