@@ -1,11 +1,11 @@
-addpath ('F:\SerialCommunication'); % add a path
-initSerialControl COM19 % initialise com port
+addpath ('D:\SerialCommunication'); % add a path
+initSerialControl COM2 % initialise com port
 
-Ypp = 38.5;
-Upp = 33;
+Ypp = 32;
+Upp = 26;
 
-simulationTime = 900;
-start = 2;
+simulationTime = 1200;
+start = 3;
 
 K1 = 10;
 Ti1 = 20;
@@ -55,7 +55,7 @@ errorR0 = 0;
 errorR1 = 0;
 errorR2 = 0;
 
-    
+h = animatedline('Marker','o');
 for k = start : 1 : simulationTime
     Y(k) = readMeasurements (1) ; % read measurements T1
     y(k) = Y(k)- Ypp;
@@ -83,20 +83,12 @@ for k = start : 1 : simulationTime
     
     
     U(k)=u(k)+Upp;
-    subplot(2,1,1)
-    plot(1:k, Y(1:k),'LineWidth', 1.1); % Wyjscie obiektu
-    hold on
-    plot(1:k, YZad(1:k),'LineWidth', 1.1); % zadana
-    hold off
-    title('Sygnal wyjsciowy');
-    xlabel('Numer probki (k)');
-    grid on;
-    subplot(2,1,2)
-    plot(1:k, U(1:k),'LineWidth', 1.1); % sterowanie
-    title('Sygnal sterujacy');
-    xlabel('Numer probki (k)');
-    grid on;
-    drawnow
+    dlmwrite('PID_ROZMYTY.txt', readMeasurements(1), '-append');
+    dlmwrite('PID_ROZMYTY_STEROWANIE.txt', U(k), '-append');
+    disp(readMeasurements(1)); % process measurements
+    disp(U(k));
+    addpoints(h,k,readMeasurements(1));
+    drawnow;
     
         
     sendNonlinearControls(U(k));
