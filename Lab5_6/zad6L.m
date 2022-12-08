@@ -6,6 +6,7 @@ W1 = 50;
 sendControls (1,50);
 Umin =0; Umax = 100;
 simulationTime = 1200;
+Ypp = 32;
 YZad(1:300) = Ypp;  
 YZad(300:600)= Ypp+5;
 YZad(600:900)= Ypp+15;

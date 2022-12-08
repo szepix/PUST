@@ -21,7 +21,7 @@ T = 1;
 UMin = 0;
 UMax = 100;
 
-
+Ypp = 32;
 YZad = zeros(simulationTime,1);
 YZad(1:300) = Ypp;  
 YZad(300:600)= Ypp+5;
