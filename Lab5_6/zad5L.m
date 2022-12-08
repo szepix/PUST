@@ -1,29 +1,31 @@
-addpath ('F:\SerialCommunication'); % add a path
-initSerialControl COM19 % initialise com port
-Upp=33; %punkt pracy do zmiany
-Ypp=38.5;
-sendControls (1,50);
+addpath ('D:\SerialCommunication'); % add a path
+initSerialControl COM2 % initialise com port
+
 Umin =0; Umax = 100;
-umin = Umin-Upp;
-umax = Umax-Upp;
 simulationTime = 1200;
 YZad = zeros(simulationTime,1);
-YZad(1:simulationTime/3) = Ypp;  
-YZad(simulationTime/3:simulationTime*2/3)= Ypp+5;
-YZad(simulationTime*2/3:end)= Ypp+15;
-yzad = YZad-Ypp;
+YZad(1:300) = Ypp;  
+YZad(300:600)= Ypp+5;
+YZad(600:900)= Ypp+15;
+YZad(900:1200) = Ypp;
+    
 
-Y = ones(simulationTime,1)*Ypp;
-y = zeros(simulationTime,1);
-U = ones(simulationTime,1)*Upp;
-u = zeros(simulationTime,1);
+Y = zeros(simulationTime,1);
+U = zeros(simulationTime,1);
 
 
 D = 300;
 N = 300;
 Nu = 300;
 lambda = 1;
-s = load('odpowiedziSkokowe/s.mat');
+values = importdata("skok_46.txt");
+
+s = zeros(1,500);
+
+for i = 1:500
+    s(i) = (values(i) - values(1))/20;
+end
+
 [M,Mp,K]=macierzMMPiK(s,N,Nu,D,lambda);
 duPop = zeros(D(1)-1,1);
 

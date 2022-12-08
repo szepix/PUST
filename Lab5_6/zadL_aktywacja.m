@@ -1,10 +1,11 @@
 function [w1,w2,w3] = zadL_aktywacja(w)
     % w1-3 wspolczynniki
     % wejscie
-    x=30:0.01:55;
-    y1 = gbellmf(x,[8 5 36]);
-    y2 = gbellmf(x,[2 5 47]);
-    y3 = gbellmf(x,[2 5 51]);
+%     x=30:0.01:55;
+    range = linspace(30,55,3);
+    y1 = gaussmf(w, [5 range(1)]);
+    y2 = gaussmf(w, [5 range(2)]);
+    y3 = gaussmf(w, [5 range(3)]);
 %     figure
 %     plot(x,y1);
 %     hold on;

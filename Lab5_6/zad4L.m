@@ -1,11 +1,9 @@
 addpath ('D:\SerialCommunication'); % add a path
 initSerialControl COM2 % initialise com port
 
-Ypp = 32;
-Upp = 26;
-
 simulationTime = 1200;
 start = 3;
+W1 = 50;
 
 K1 = 10;
 Ti1 = 20;
@@ -22,20 +20,17 @@ T = 1;
 
 UMin = 0;
 UMax = 100;
-uMin = UMin-Upp; 
-uMax = UMax-Upp; 
+
 
 YZad = zeros(simulationTime,1);
-YZad(1:simulationTime/3) = Ypp;  
-YZad(simulationTime/3:simulationTime*2/3)= Ypp+5;
-YZad(simulationTime*2/3:end)= Ypp+15;
-yZad = YZad-Ypp;
+YZad(1:300) = Ypp;  
+YZad(300:600)= Ypp+5;
+YZad(600:900)= Ypp+15;
+YZad(900:1200) = Ypp;
     
     
-Y = ones(simulationTime,1)*Ypp;
-y = zeros(simulationTime,1);
-U = ones(simulationTime,1)*Upp;
-u = zeros(simulationTime,1);
+Y = zeros(simulationTime,1);
+U = zeros(simulationTime,1);
 	
     
 r01 = K1 * (1 + T/(2*Ti1) + Td1/T);
@@ -58,8 +53,7 @@ errorR2 = 0;
 h = animatedline('Marker','o');
 for k = start : 1 : simulationTime
     Y(k) = readMeasurements (1) ; % read measurements T1
-    y(k) = Y(k)- Ypp;
-    errorR0 = yZad(k) - y(k);
+    errorR0 = YZad(k) - Y(k);
         
 	% PID eqation
     [w1 w2 w3] = zadL_aktywacja(y(k));
@@ -74,24 +68,24 @@ for k = start : 1 : simulationTime
     % Prawo regulacji
     u(k) = u(k-1) + du;
 
-    if u(k)> uMax
-		u(k) = uMax; 
+    if u(k)> UMax
+		u(k) = UMax; 
     end
-    if u(k)< uMin
-        u(k) = uMin;
+    if u(k)< UMin
+        u(k) = UMin;
     end
     
     
-    U(k)=u(k)+Upp;
     dlmwrite('PID_ROZMYTY.txt', readMeasurements(1), '-append');
-    dlmwrite('PID_ROZMYTY_STEROWANIE.txt', U(k), '-append');
+    dlmwrite('PID_ROZMYTY_STEROWANIE.txt', u(k), '-append');
     disp(readMeasurements(1)); % process measurements
-    disp(U(k));
+    disp(Y(k));
     addpoints(h,k,readMeasurements(1));
     drawnow;
     
-        
-    sendNonlinearControls(U(k));
+    sendControls([ 1, 2, 3, 4, 6], ... send for these elements
+                     [W1, 0, 0, 0, 0]);  % new corresponding control values
+    sendNonlinearControls(u(k));
     errorR2 = errorR1;
     errorR1 = errorR0;
     waitForNewIteration ();

@@ -41,9 +41,9 @@ end
 lambda1=1;
 lambda2=1;
 lambda3=1;
-[M1,MP1,K1]=macierzMMPiK(s1,N,Nu,D,lambda1);
-[M2,MP2,K2]=macierzMMPiK(s2,N,Nu,D,lambda2);
-[M3,MP3,K3]=macierzMMPiK(s3,N,Nu,D,lambda3);
+[M1,Mp1,K1]=macierzMMPiK(s1,N,Nu,D,lambda1);
+[M2,Mp2,K2]=macierzMMPiK(s3,N,Nu,D,lambda2);
+[M3,Mp3,K3]=macierzMMPiK(s6,N,Nu,D,lambda3);
 %% inicjalizacja
 
 %% petla regulacji
@@ -51,23 +51,11 @@ lambda3=1;
 for k=2:simulation_time
     Y(k) = readMeasurements(1);
     [w1 w2 w3] = zadL_aktywacja(y(k));
-    for n=1:N
-        Y(n) = y(k);
-    end
-    %DMC
-    for n = 1:D-1
-        DUp(n) = u(k-n) - u(k-n-1);
-    end
-    Yo1 = MP1*DUp+Y;
-    DU1 = K1*(YZad - Yo1);
-
-    Yo2 = MP2*DUp+Y;
-    DU2 = K2*(YZad - Yo2);
-
-    Yo3 = MP3*DUp+Y;
-    DU1 = K3*(YYZad - Yo3);
-
-    du=DU1*w1+DU2*w2+DU3*w3;
+    
+    dU1=dmc_inny(Mp1,K1,N,y(k),yzad(k),duPop);
+    dU2=dmc_inny(Mp2,K2,N,y(k),yzad(k),duPop);
+    dU3=dmc_inny(Mp3,K3,N,y(k),yzad(k),duPop);
+    du=dU1*w1+dU2*w2+dU3*w3;
  
     u(k)=u(k-1)+du;
     
@@ -80,6 +68,7 @@ for k=2:simulation_time
     
     du = u(k) - u(k-1);
     
+    duPop = [du; duPop(1:end-1)];
     
     dlmwrite('DMC_ROZMYTY.txt', readMeasurements(1), '-append');
     dlmwrite('DMC_ROZMYTY_STEROWANIE.txt', u(k), '-append');
