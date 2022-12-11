@@ -6,7 +6,7 @@ s = file.Y;
 %% Parametry regulatora
 Nu = 2.000;
 N = 16.000;
-D = 40;
+D = 60;
 lamb = 0.1614;
 
 %% Wyznaczanie macierzy oraz innych parametrów regulatora
