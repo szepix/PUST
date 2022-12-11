@@ -45,9 +45,11 @@ kk = 650; %koniec symulacji
 u(1:kp) = 0; 
 y(1:kp) = 0;
 
-yzad(1:kp+10) = 0;
-yzad(kp+10:350) = 6;
-yzad(350:kk) = -0.1;
+yzad(1:kp) = 0;
+yzad(kp:350) = 10;
+yzad(350:kk-100) = 5;
+yzad(kk-100:kk) = -0.25;
+
 
 e = 0;
 
@@ -101,7 +103,6 @@ stairs(iteracja, yzad,"--");
 hold off;
 title("Odpowiedź skokowa układu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
 xlabel('k'); ylabel("y");
-xlim([0 650])
 legend("y","y_z_a_d", "Location", "northeast")
 
 %Plot sterowanie

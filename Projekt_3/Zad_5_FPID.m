@@ -24,10 +24,11 @@ U(1:kp,1) = Upp;
 Y(1:kp,1) = Ypp;
 e(1:kp) = 0;
 
-%Zmiana wartości zadanej
-y_zad(1:kp+10) = 3;
-y_zad(kp+10:350) = 9;
-y_zad(350:kk) = 0.1;
+%% Zmiana wartości zadanej
+y_zad(1:kp) = 0;
+y_zad(kp:350) = 10;
+y_zad(350:kk-100) = 5;
+y_zad(kk-100:kk) = -0.25;
 
 
 %% Prametry fukncji przyneleznosci
@@ -38,7 +39,7 @@ y_max = 12;
 y_min = -1;
 
 d = (y_max-y_min)/(il+1); %szerokości funkcji przynależnośći
-spread = d;
+spread = d/2;
 
 %Wybranie punktu pracy
 yr0 = ones(1,il);
@@ -74,9 +75,9 @@ end
 
 %% Parametry Regulatora 1
 
-Kp1 = 3;
-Ti1 = 7.5975;
-Td1 = 4.0725e-08;
+Kp1 = 0.7;
+Ti1 = 0.2;
+Td1 = 0.1;
 
 r01 = Kp1*(1 + T/(2*Ti1) + Td1/T);
 r11 = Kp1*(T/(2*Ti1) - (2*Td1)/T -1);
@@ -84,9 +85,9 @@ r21 = Kp1*Td1/T;
 
 %% Parametry Regulatora 2
 
-Kp2 = 5;
-Ti2 = 7.5975;
-Td2 = 4.0725e-08;
+Kp2 = 1.1;
+Ti2 = 0.5;
+Td2 = 0.25;
 
 r02 = Kp2*(1 + T/(2*Ti2) + Td2/T);
 r12 = Kp2*(T/(2*Ti2) - (2*Td2)/T -1);
@@ -94,9 +95,9 @@ r22 = Kp2*Td2/T;
 
 %% Parametry Regulatora 3
 
-Kp3 = 3;
-Ti3 = 7.5975;
-Td3 = 4.0725e-08;
+Kp3 = 1.4;
+Ti3 = 0.5;
+Td3 = 0.25;
 
 r03 = Kp3*(1 + T/(2*Ti3) + Td3/T);
 r13 = Kp3*(T/(2*Ti3) - (2*Td3)/T -1);
@@ -132,7 +133,7 @@ for k = kp:kk
     U_3 = U(k-1) + r03*e(k) + r13*e(k-1) + r23*e(k-2);
     
     
-    U_now = (U_1 * w(1,k) + U_2 * w(2,k) + U_3 * w(3,k))/sum(w(:,k));
+    U_now = (U_1 * w(1,k) + U_2 * w(2,k) + U_3 * w(3,k))/sum(w(:,k)*3);
 
 
     if U_now < -1
@@ -156,6 +157,5 @@ hold on
 stairs(1:kk,y_zad,"--")
 hold off
 legend("y(k)","y_z_a_d(k)")
-xlim([0 650])
 title("Rozmyty regulator PID, error = " + sum(err))
 % exportgraphics(gca,'y_p_p.pdf')

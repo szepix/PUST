@@ -21,9 +21,11 @@ Y(1:kp,1) = Ypp;
 e(1:kp) = 0;
 
 %Zmiana wartości zadanej
-y_zad(1:kp+10) = 0;
-y_zad(kp+10:350) = 6;
-y_zad(350:kk) = -0.1;
+y_zad(1:kp) = 0;
+y_zad(kp:350) = 10;
+y_zad(350:kk-100) = 5;
+y_zad(kk-100:kk) = -0.25;
+
 
 %% Parametry Regulatora
 
