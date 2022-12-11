@@ -12,16 +12,16 @@ y_max = 12;
 y = (y_min:0.1:y_max)';
 
 
-d = (y_max-y_min)/il; %szerokości funkcji przynależnośći
+d = (y_max-y_min)/(il+1); %szerokości funkcji przynależnośći
+spread = d/1.5;
 
 %Wybranie punktu pracy
 yr0 = ones(1,il);
 yr0(1) = d/2;
-yr0(il) = yr0(il-1) + d/2;
     for i = 2:il-1
-        yr0(i) = yr0(i-1) + d/2;
+        yr0(i) = yr0(i-1) + d;
     end
-
+yr0(il) = yr0(il-1) + d;
 
 if draw
     figure
@@ -29,14 +29,14 @@ if draw
     %Plotter funkcji przynaleznosci
     for i = 1:il
         if i == 1
-            plot(gaussmf(y,[d/2, yr0(1)]));
+            plot(y,gaussmf(y,[spread, yr0(1)]));
         elseif i == il
-            plot(gaussmf(y,[d/2, yr0(i)]));
+            plot(y,gaussmf(y,[spread, yr0(i)]));
         else
-            plot(gaussmf(y,[d/2, yr0(i)]));        
+            plot(y,gaussmf(y,[spread, yr0(i)]));        
         end
     end
-    xlim([-10 120])
+    xlim([-1 12])
     xlabel("y"); ylabel("Funkcja przynależności");
     title(sprintf("Funkcja przynaleznosci dla %i zbiorów rozmytych",il))
     if sa

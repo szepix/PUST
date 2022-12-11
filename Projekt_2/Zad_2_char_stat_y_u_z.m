@@ -40,7 +40,7 @@ for i = 1:kk
 end
 %% Plot
 
-h = surf(u_stat,z_stat,y_stat)
+h = surf(u_stat,z_stat,y_stat);
 set(h,'LineStyle','none')
 colormap winter;
 xlabel("u")
