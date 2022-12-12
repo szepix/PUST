@@ -35,69 +35,69 @@ y_zad(kk-100:kk) = -0.25;
 il = 3; %Ilosc regualtorów
 % w = zeros(il,kk);
 
-y_max = 12;
-y_min = -1;
+%Zmienne zadaniowe
+u_min = -1;
+u_max = 1;
 
-d = (y_max-y_min)/(il+1); %szerokości funkcji przynależnośći
-spread = d/2;
+
+d = (u_max-u_min)/(il-1); %szerokości funkcji przynależnośći
+spread = d/4;
 
 %Wybranie punktu pracy
-yr0 = ones(1,il);
-yr0(1) = d/2;
+ur0 = ones(1,il);
+ur0(1) = u_min;
     for i = 2:il-1
-        yr0(i) = yr0(i-1) + d;
+        ur0(i) = ur0(i-1) + d;
     end
-yr0(il) = yr0(il-1) + d;
+ur0(il) = ur0(il-1) + d;
 
 %% Rysowanie funkcji przyneleżności
 if draw
-    y = (y_min:0.1:y_max)';
+    u = (u_min:0.01:u_max)';
     figure
     hold on
     %Plotter funkcji przynaleznosci
     for i = 1:il
         if i == 1
-            plot(y,gaussmf(y,[spread, yr0(1)]));
+            plot(u,gaussmf(u,[spread, ur0(1)]));
         elseif i == il
-            plot(y,gaussmf(y,[spread, yr0(i)]));
+            plot(u,gaussmf(u,[spread, ur0(i)]));
         else
-            plot(y,gaussmf(y,[spread, yr0(i)]));        
+            plot(u,gaussmf(u,[spread, ur0(i)]));        
         end
     end
-    xlim([-1 12])
-    xlabel("y"); ylabel("Funkcja przynależności");
+    xlabel("u"); ylabel("Funkcja przynależności");
     title(sprintf("Funkcja przynaleznosci dla %i zbiorów rozmytych",il))
-    if sa
-        print(sprintf('funkcja_przynelznosci_%i.png',il_fun),'-dpng','-r400')
-    end
     hold off
 end
 
 %% Parametry Regulatora 1
 
-Kp1 = 0.7;
-Ti1 = 0.2;
-Td1 = 0.1;
+Kp1 = 2;
+Ti1 = 10000;
+Td1 = 1;
+
+%% Parametry Regulatora 2
+
+Kp2 = 6;
+Ti2 = 10000;
+Td2 = 1;
+
+
+%% Parametry Regulatora 3
+
+Kp3 = 9;
+Ti3 = 10000;
+Td3 = 1;
+
 
 r01 = Kp1*(1 + T/(2*Ti1) + Td1/T);
 r11 = Kp1*(T/(2*Ti1) - (2*Td1)/T -1);
 r21 = Kp1*Td1/T;
 
-%% Parametry Regulatora 2
-
-Kp2 = 1.1;
-Ti2 = 0.5;
-Td2 = 0.25;
-
 r02 = Kp2*(1 + T/(2*Ti2) + Td2/T);
 r12 = Kp2*(T/(2*Ti2) - (2*Td2)/T -1);
 r22 = Kp2*Td2/T;
-
-%% Parametry Regulatora 3
-
-Kp3 = 1.4;
-Ti3 = 0.5;
-Td3 = 0.25;
 
 r03 = Kp3*(1 + T/(2*Ti3) + Td3/T);
 r13 = Kp3*(T/(2*Ti3) - (2*Td3)/T -1);
@@ -112,11 +112,11 @@ for k = kp:kk
   
     for i = 1:il
         if i == 1
-            w(1,k) = gaussmf(Y(k),[spread, yr0(1)]);
+            w(1,k) = gaussmf(U(k-1),[spread, ur0(1)]);
         elseif i == il
-            w(il,k) = gaussmf(Y(k),[spread, yr0(il)]);
+            w(il,k) = gaussmf(U(k-1),[spread, ur0(il)]);
         else
-            w(i,k) = gaussmf(Y(k),[spread, yr0(i)]);   
+            w(i,k) = gaussmf(U(k-1),[spread, ur0(i)]);   
         end
     end
     
@@ -133,7 +133,7 @@ for k = kp:kk
     U_3 = U(k-1) + r03*e(k) + r13*e(k-1) + r23*e(k-2);
     
     
-    U_now = (U_1 * w(1,k) + U_2 * w(2,k) + U_3 * w(3,k))/sum(w(:,k)*3);
+    U_now = (U_1 * w(1,k) + U_2 * w(2,k) + U_3 * w(3,k))/(sum(w(:,k))*3);
 
 
     if U_now < -1
