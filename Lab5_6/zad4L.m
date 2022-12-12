@@ -5,17 +5,17 @@ simulationTime = 1200;
 start = 3;
 W1 = 50;
 
-K1 = 10;
-Ti1 = 20;
-Td1 = 10;
+K1 = 6;
+Ti1 = 40;
+Td1 = 1;
 
-K2 = 15;
-Ti2 = 5;
-Td2 = 10;
+K2 = 8;
+Ti2 = 40;
+Td2 = 1;
 
-K3 = 12;
-Ti3 = 15;
-Td3 = 15;
+K3 = 10;
+Ti3 = 40;
+Td3 = 1;
 T = 1;
 
 UMin = 0;
@@ -30,7 +30,7 @@ YZad(900:1200) = Ypp;
     
     
 Y = zeros(simulationTime,1);
-U = zeros(simulationTime,1);
+u = zeros(simulationTime,1);
 	
     
 r01 = K1 * (1 + T/(2*Ti1) + Td1/T);
@@ -56,7 +56,7 @@ for k = start : 1 : simulationTime
     errorR0 = YZad(k) - Y(k);
         
 	% PID eqation
-    [w1 w2 w3] = zadL_aktywacja(y(k));
+    [w1 w2 w3] = zadL_aktywacja(Y(k));
     u1 = u(k-1) + r01 * errorR0 + r11 * errorR1 + r21 * errorR2;
     u2 = u(k-1) + r02 * errorR0 + r12 * errorR1 + r22 * errorR2;
     u3 = u(k-1) + r03 * errorR0 + r13 * errorR1 + r23 * errorR2;
@@ -76,9 +76,9 @@ for k = start : 1 : simulationTime
     end
     
     
-    dlmwrite('PID_ROZMYTY.txt', readMeasurements(1), '-append');
-    dlmwrite('PID_ROZMYTY_STEROWANIE.txt', u(k), '-append');
-    disp(readMeasurements(1)); % process measurements
+    dlmwrite('PID_ROZMYTY_3.txt', readMeasurements(1), '-append');
+    dlmwrite('PID_ROZMYTY_STEROWANIE_3.txt', u(k), '-append');
+    disp(u(k)); % process measurements
     disp(Y(k));
     addpoints(h,k,readMeasurements(1));
     drawnow;
