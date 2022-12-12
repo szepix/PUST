@@ -33,14 +33,13 @@ for k = kp:kk
 end
 
 %Skalowanei odp skokowej
-plot(Y);
 s = (Y(kp+100:end) - Y(kp+99)*ones(1, length(Y(kp+100:end))))/du;
 
 %% Plot
-stairs(s)
-hold on
-legend("y(k)")
-xlabel("k"); ylabel("y");
-title("Odpowiedz skokowa")
+% stairs(s)
+% hold on
+% legend("y(k)")
+% xlabel("k"); ylabel("y");
+% title("Odpowiedz skokowa")
 
 end

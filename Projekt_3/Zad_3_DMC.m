@@ -83,10 +83,12 @@ for k=kp:kk
     u(k)=u(k-1)+DU(1);  
     
     if u(k) > u_max
-        u(k) = u_max;
+       DU(1) = u_max - u(k-1) ;
     elseif u(k) < u_min
-        u(k) = u_min;
+        DU(1) = u_min - u(k-1);
     end
+
+    u(k)=u(k-1)+DU(1);  
 
     e = e + (yzad(k) - y(k))^2;
 
