@@ -119,7 +119,7 @@ hold on;
 stairs(iteracja, yzad,"--");
 stairs(iteracja,z,"--")
 hold off;
-title("Odpowiedz skokowa ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
+title("Odpoweidż obiektu na regulację regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
 xlabel('k'); ylabel("y");
 xlim([0 500])
 legend("y","y_z_a_d", "Location", "northeast")
@@ -130,7 +130,7 @@ end
 %Plot sterowanie
 figure;
 stairs(iteracja, u)
-title("Sterowanie ukladu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
+title("Sterowanie regulatora DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
 xlabel('k'); ylabel("u");
 name = sprintf("%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb);
 if sav

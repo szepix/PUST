@@ -1,5 +1,7 @@
 clear all; clc
 
+sav = true;
+
 %% Inicjalizacja zmienych
 
 T = 0.5; %Czas próbkowania
@@ -59,12 +61,27 @@ for k = kp:kk
 
 end
 
-display(err)
+iteracja = 0:1:kk-1;
 
+display(err)
+figure;
 stairs(1:kk,Y)
 hold on
 stairs(1:kk,y_zad,"--")
 hold off
 legend("y(k)","y_z_a_d(k)")
-xlim([0 650])
-% exportgraphics(gca,'y_p_p.pdf')
+title("Odpowiedź obiektu na regulację z regulatorem PID"  + newline + "K = " + Kp + " Ti = " + Ti + " Td = " + Td + "  error = " + err );
+name = sprintf("PID_%f_%f_%f_przeb.pdf",Kp,Ti,Td);
+if sav
+    exportgraphics(gca,name);
+end
+
+figure;
+stairs(iteracja, U)
+title("Sterowanie regulatora PID"  + newline + "K = " + Kp + " Ti= " + Ti + " Td = " + Td + "  error = " + err );
+xlabel('k'); ylabel("u");
+% legend("Sterowanie regulatora", "Location", "best")
+name = sprintf("PID_%f_%f_%f_ster.pdf",Kp,Ti,Td);
+if sav
+    exportgraphics(gca,name)
+end

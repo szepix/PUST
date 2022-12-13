@@ -24,9 +24,9 @@ for i = 1 : length(wart_u)
     char_stat(i) = Y(kk);
 end
 
+set(0,'defaultLineLineWidth',1);
 plot(wart_u,char_stat);
 title("Charakterystyka statyczna")
 xlabel("u")
 ylabel("y")
-set(get(gca,'ylabel'),'rotation',0)
-exportgraphics(gca,'charakterystyka_statyczna.pdf')
+% exportgraphics(gca,'charakterystyka_statyczna.pdf')

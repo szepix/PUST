@@ -1,7 +1,7 @@
 clear all; clc
 
 draw = true;
-sa = false;
+sa = true;
 
 
 %% Inicjalizacja zmienych
@@ -151,11 +151,27 @@ end
 
 display(err)
 
+iteracja = 0:1:kk-1;
+
+display(err)
 figure;
 stairs(1:kk,Y)
 hold on
 stairs(1:kk,y_zad,"--")
 hold off
 legend("y(k)","y_z_a_d(k)")
-title("Rozmyty regulator PID, error = " + sum(err))
-% exportgraphics(gca,'y_p_p.pdf')
+title("Odpowiedź obiektu na regulację z rozmytym regulatorem PID");
+name = sprintf("PIDF_%f_%f_%f_przeb.pdf",Kp1,Kp2,Kp3);
+if sa
+    exportgraphics(gca,name);
+end
+
+figure;
+stairs(iteracja, U)
+title("Sterowanie rozmytego regulatora PID");
+xlabel('k'); ylabel("u");
+% legend("Sterowanie regulatora", "Location", "best")
+name = sprintf("PIDF_%f_%f_%f_ster.pdf",Kp1,Kp2,Kp3);
+if sa
+    exportgraphics(gca,name)
+end

@@ -2,7 +2,7 @@ clear; clc;
 
 %% Parametry programu
 draw = true;
-sa = false;
+sa = true;
 draw_f_przyn = false;
 
 set(0,'DefaultStairLineWidth',1);
@@ -178,24 +178,33 @@ for k=kp:kk
     U(k)=U(k-1)+Du(1);  
 end
 
-if draw
-iteracja = 0:1:kk-1;
+
+iteracja = 0:1:kk-1;  
 %Plot wyjście
 figure;
 stairs(iteracja, Y)
 hold on;
 stairs(iteracja, yzad,"--");
 hold off;
-xlabel('k'); ylabel("Y");
-legend("Y","h_2_z_a_d")
-% exportgraphics(gca,'DMC_rozm_zmiana_wart.pdf')
+title("Odpowiedź obiektu na regulację z rozmytym regulatorem DMC")
+xlabel('k'); ylabel("y");
+legend("y","y_z_a_d", "Location", "northeast")
+name = sprintf("DMCF_%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb(1));
+
+if sa
+    exportgraphics(gca,name)
+end
 
 %Plot sterowanie
 figure;
 stairs(iteracja, U)
-legend("Sterowanie")
-xlabel('k'); ylabel("Sterowanie");
-% exportgraphics(gca,'DMC_rozm_zmiana_ster.pdf')
+title("Sterowanie rozmytego regulatora DMC");
+xlabel('k'); ylabel("u");
+% legend("Sterowanie regulatora", "Location", "best")
+name = sprintf("DMCF_%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb(1));
+
+if sa
+    exportgraphics(gca,name)
 end
 
 display(err_sum)

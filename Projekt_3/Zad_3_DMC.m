@@ -1,13 +1,15 @@
 clear; clc;
 
+sav = true;
+
 file = load("odp_skok.mat");
 s = file.Y;
 
 %% Parametry regulatora
 Nu = 2.000;
 N = 16.000;
-D = 60;
-lamb = 0.1614;
+D = 100;
+lamb = 400;
 
 %% Wyznaczanie macierzy oraz innych parametrów regulatora
 
@@ -103,13 +105,21 @@ stairs(iteracja, y)
 hold on;
 stairs(iteracja, yzad,"--");
 hold off;
-title("Odpowiedź skokowa układu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
+title("Odpowiedź obiektu na regulację z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
 xlabel('k'); ylabel("y");
 legend("y","y_z_a_d", "Location", "northeast")
+name = sprintf("DMC_%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb);
+if sav
+exportgraphics(gca,name)
+end
 
 %Plot sterowanie
 figure;
 stairs(iteracja, u)
-title("Sterowanie układu z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
+title("Sterowanie regulatora DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu + " lambda = " + lamb); 
 xlabel('k'); ylabel("u");
-legend("Sterowanie regulatora", "Location", "best")
+% legend("Sterowanie regulatora", "Location", "best")
+name = sprintf("DMC_%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb);
+if sav
+exportgraphics(gca,name)
+end
