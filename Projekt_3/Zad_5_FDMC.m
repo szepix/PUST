@@ -33,16 +33,16 @@ Umin = -1;
 Umax = 1;
 
 kp = D+1;
-kk = 650;
+kk = kp+800;
 
 U(1:kp,1) = Upp;
 Y(1:kp,1) = Ypp;
 e(1:kp) = 0;
 
 yzad(1:kp) = 0;
-yzad(kp:350) = 10;
-yzad(350:kk-100) = 5;
-yzad(kk-100:kk) = -0.25;
+yzad(kp:350) = 11;
+yzad(350:600) = -0.1;
+yzad(600:kk) = 5;
 
 
 %Zmienne zadaniowe

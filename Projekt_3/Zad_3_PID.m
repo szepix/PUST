@@ -3,30 +3,30 @@ clear all; clc
 sav = true;
 
 %% Inicjalizacja zmienych
-
-T = 0.5; %Czas próbkowania
-t_sym = 300; %Czas symulacji (w sekundach)
-
-kp = 150; %Krok początkowy startu symulacji
-kk = 650; %Krok końcowy
-
 Upp = 0;
 Ypp = 0;
 
 err = 0;
 
+T = 0.5;
+
 Umin = -1;
 Umax = 1;
+
+kp = 100;
+kk = kp+800;
 
 U(1:kp,1) = Upp;
 Y(1:kp,1) = Ypp;
 e(1:kp) = 0;
 
 %Zmiana wartości zadanej
+
+
 y_zad(1:kp) = 0;
-y_zad(kp:350) = 10;
-y_zad(350:kk-100) = 5;
-y_zad(kk-100:kk) = -0.25;
+y_zad(kp:350) = 11;
+y_zad(350:600) = -0.1;
+y_zad(600:kk) = 5;
 
 
 %% Parametry Regulatora

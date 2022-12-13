@@ -41,17 +41,16 @@ Y = zeros(N,1);
 
 %% Warunki początkowe symulacji
 
-kp = 150; %początek symulacji
-kk = 650; %koniec symulacji
+kp = D+1;
+kk = kp+800;
 
 u(1:kp) = 0; 
 y(1:kp) = 0;
 
 yzad(1:kp) = 0;
-yzad(kp:350) = 10;
-yzad(350:kk-100) = 5;
-yzad(kk-100:kk) = -0.25;
-
+yzad(kp:350) = 11;
+yzad(350:600) = -0.1;
+yzad(600:kk) = 5;
 
 e = 0;
 
