@@ -6,10 +6,10 @@ file = load("odp_skok.mat");
 s = file.Y;
 
 %% Parametry regulatora
-Nu = 2.000;
-N = 16.000;
+Nu = 2;
+N = 100;
 D = 100;
-lamb = 140;
+lamb = 1;
 
 %% Wyznaczanie macierzy oraz innych parametrów regulatora
 
@@ -53,7 +53,7 @@ yzad(350:600) = -0.1;
 yzad(600:kk) = 5;
 
 e = 0;
-
+DU = 0;
 u_max = 1;
 u_min = -1;
 
@@ -76,6 +76,7 @@ for k=kp:kk
     for n = 1:D-1
         DUp(n) = u(k-n) - u(k-n-1);
     end
+    DUp(1) = DU(1);
 
     Yo = MP*DUp+Y;
 
@@ -83,13 +84,11 @@ for k=kp:kk
         
     u(k)=u(k-1)+DU(1);  
     
-    if u(k) > u_max
-       DU(1) = u_max - u(k-1) ;
-    elseif u(k) < u_min
-        DU(1) = u_min - u(k-1);
-    end
+    if( u(k) > u_max); u(k) = u_max; end
+    if( u(k) < u_min); u(k) = u_min; end
+    
+    DU(1) = u(k) - u(k-1);
 
-    u(k)=u(k-1)+DU(1);  
 
     e = e + (yzad(k) - y(k))^2;
 

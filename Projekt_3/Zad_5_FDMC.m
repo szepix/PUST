@@ -11,8 +11,8 @@ Umax = 120;
 Umin = 0;
 
 %% Parametry regulatora
-Nu = 2;
-N = 16;
+Nu = 100;
+N = 100;
 D = 100;
 lamb = 140;
 
@@ -31,6 +31,10 @@ err = 0;
 
 Umin = -1;
 Umax = 1;
+
+DUmax = 0.01;
+DUmin = -0.01;
+
 
 kp = D+1;
 kk = kp+800;
@@ -121,7 +125,8 @@ end
 error = 0;
 w = zeros(1,il);
 Du = zeros(il,1);
-DUp = zeros(1,D-1);
+du = zeros(1,kp);
+dUp = zeros(1,D-1);
 err_cur = 0;
 err_sum = 0;
 
@@ -134,6 +139,12 @@ for k=kp:kk
     %symulacja obiektu
     Y(k) = symulacja_obiektu1y_p3(U(k-5),U(k-6),Y(k-1),Y(k-2));
 
+    for i=D-1:-1:2
+        dUp(i) = dUp(i-1); 
+    end
+    
+    dUp(1) = du(k-1);
+
     %Liczenie błędu
     err_cur = yzad(k) - Y(k);
     err_sum = err_sum + norm((yzad(k) - Y(k)))^2;
@@ -141,7 +152,7 @@ for k=kp:kk
 
     %Liczenie wartości przyrostu sterowania
     for i = 1:il
-        Du(i) = ke(i)*err_cur-ku(i,:)*DUp';
+        Du(i) = ke(i)*err_cur-ku(i,:)*dUp';
         if i == 1
             w(1,k) = gaussmf(U(k-1),[spread, ur0(1)]);
         elseif i == il
@@ -153,29 +164,16 @@ for k=kp:kk
     
 
     %Ogranieczenia przyrostu sterowania
-    DUfin = w(:,k)' * Du / sum(w(:,k));
+    du(k) = w(:,k)' * Du / sum(w(:,k));
     
-    if DUfin > DUmax
-        DUfin = DUmax;
-    elseif DUfin < -DUmax
-        DUfin = -DUmax;
-    end
-
-    for i = D-1:-1:2
-      DUp(i) = DUp(i-1);
-    end
+    U(k) = du(k) + U(k-1);
     
-    DUp(1) = DUfin;
+    if(U(k) > Umax); U(k) = Umax; end
+    if(U(k) < Umin); U(k) = Umin; end
 
-    U(k)=U(k-1)+Du(1);  
-    
-    if U(k) > u_max
-       Du(1) = u_max - U(k-1) ;
-    elseif U(k) < u_min
-        Du(1) = u_min - U(k-1);
-    end
 
-    U(k)=U(k-1)+Du(1);  
+    du(k) = U(k) - U(k-1);
+
 end
 
 
@@ -208,4 +206,3 @@ if sa
 end
 
 display(err_sum)
-
