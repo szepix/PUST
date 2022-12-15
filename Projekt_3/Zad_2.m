@@ -37,4 +37,4 @@ for i=1:6
     lgd{i} = strcat('u = ',num2str(((i-1)*0.4-1)));
 end
 legend(lgd,Location="northoutside",Orientation="horizontal")
-% exportgraphics(f,'odp_skok_u.pdf')
+exportgraphics(f,'odp_skok_u.pdf')

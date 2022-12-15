@@ -29,4 +29,4 @@ plot(wart_u,char_stat);
 title("Charakterystyka statyczna")
 xlabel("u")
 ylabel("y")
-% exportgraphics(gca,'charakterystyka_statyczna.pdf')
+exportgraphics(gca,'charakterystyka_statyczna.pdf')

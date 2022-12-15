@@ -9,7 +9,7 @@ s = file.Y;
 Nu = 2.000;
 N = 16.000;
 D = 100;
-lamb = 400;
+lamb = 140;
 
 %% Wyznaczanie macierzy oraz innych parametrów regulatora
 

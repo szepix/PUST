@@ -1,7 +1,8 @@
-function [s] = Zad_4_generate_step(u_pp)
+function [s] = Zad_5_generate_step(u_pp)
 
 %% Wymierzanie skoku jednostkowego
 
+pl = false;
 
 D = 100;
 
@@ -35,11 +36,14 @@ end
 %Skalowanei odp skokowej
 s = (Y(kp+100:end) - Y(kp+99)*ones(1, length(Y(kp+100:end))))/du;
 
+
 %% Plot
-% stairs(s)
-% hold on
-% legend("y(k)")
-% xlabel("k"); ylabel("y");
-% title("Odpowiedz skokowa")
+if pl
+    stairs(s)
+    hold on
+    legend("y(k)")
+    xlabel("k"); ylabel("y");
+    title("Odpowiedz skokowa")
+end
 
 end
