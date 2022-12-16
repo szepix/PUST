@@ -11,10 +11,11 @@ Umax = 120;
 Umin = 0;
 
 %% Parametry regulatora
-Nu = 100;
-N = 100;
 D = 100;
-lamb = 1;
+N = 50;
+Nu = 8;
+
+lamb = 45;
 
 
 %liczba regulatorów
@@ -183,7 +184,7 @@ stairs(iteracja, Y)
 hold on;
 stairs(iteracja, yzad,"--");
 hold off;
-title("Odpowiedź obiektu na regulację z rozmytym regulatorem DMC")
+title("Odpowiedz obiektu na regulacje z rozmytym regulatorem DMC " +newline +"error = " + err_sum)
 xlabel('k'); ylabel("y");
 legend("y","y_z_a_d", "Location", "northeast")
 name = sprintf("DMCF_%i_%i_%i_%2f_%i_przeb.pdf",D,N,Nu,lamb(1),il);
