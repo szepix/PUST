@@ -2,7 +2,7 @@ clear; clc;
 
 %% Parametry programu
 draw = true;
-sa = false;
+sa = true;
 draw_f_przyn = false;
 
 set(0,'DefaultStairLineWidth',1);
@@ -14,11 +14,11 @@ Umin = 0;
 Nu = 100;
 N = 100;
 D = 100;
-lamb = 140;
+lamb = 1;
 
 
 %liczba regulatorów
-il = 4;
+il = 5;
 lamb = lamb*ones(1,il);
 
 
@@ -171,7 +171,6 @@ for k=kp:kk
     if(U(k) > Umax); U(k) = Umax; end
     if(U(k) < Umin); U(k) = Umin; end
 
-
     du(k) = U(k) - U(k-1);
 
 end
@@ -187,7 +186,7 @@ hold off;
 title("Odpowiedź obiektu na regulację z rozmytym regulatorem DMC")
 xlabel('k'); ylabel("y");
 legend("y","y_z_a_d", "Location", "northeast")
-name = sprintf("DMCF_%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb(1));
+name = sprintf("DMCF_%i_%i_%i_%2f_%i_przeb.pdf",D,N,Nu,lamb(1),il);
 
 if sa
     exportgraphics(gca,name)
@@ -199,7 +198,7 @@ stairs(iteracja, U)
 title("Sterowanie rozmytego regulatora DMC");
 xlabel('k'); ylabel("u");
 % legend("Sterowanie regulatora", "Location", "best")
-name = sprintf("DMCF_%i_%i_%i_%2f_ster.pdf",D,N,Nu,lamb(1));
+name = sprintf("DMCF_%i_%i_%i_%2f_%i_ster.pdf",D,N,Nu,lamb(1),il);
 
 if sa
     exportgraphics(gca,name)

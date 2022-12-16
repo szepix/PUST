@@ -1,6 +1,6 @@
 clear all; clc
 
-sav = true;
+sav = false;
 
 %% Inicjalizacja zmienych
 Upp = 0;
