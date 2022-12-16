@@ -1,15 +1,15 @@
-clear; clc;
+clear all; clc;
 
 sav = false;
 
 file = load("odp_skok.mat");
 s = file.Y;
 
-%% Parametry regulatora
-Nu = 100;
-N = 100;
+
+Nu = 2;
+N = 25;
 D = 100;
-lamb = 1;
+lamb = 100;
 
 %% Wyznaczanie macierzy oraz innych parametrów regulatora
 
@@ -89,7 +89,6 @@ for k=kp:kk
     
     DU(1) = u(k) - u(k-1);
 
-
     e = e + (yzad(k) - y(k))^2;
 
 end
@@ -103,7 +102,7 @@ stairs(iteracja, y)
 hold on;
 stairs(iteracja, yzad,"--");
 hold off;
-title("Odpowiedź obiektu na regulację z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
+title("Odpowiedz obiektu na regulacje z regulatorem DMC" + newline + "D = " + D + " N = " + N + " Nu = " + Nu +  " lambda = " + lamb + " error = " + e ); 
 xlabel('k'); ylabel("y");
 legend("y","y_z_a_d", "Location", "northeast")
 name = sprintf("DMC_%i_%i_%i_%2f_przeb.pdf",D,N,Nu,lamb);
