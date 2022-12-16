@@ -1,12 +1,12 @@
 clear; clc;
 
-sav = true;
+sav = false;
 
 file = load("odp_skok.mat");
 s = file.Y;
 
 %% Parametry regulatora
-Nu = 2;
+Nu = 100;
 N = 100;
 D = 100;
 lamb = 1;

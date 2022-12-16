@@ -18,7 +18,7 @@ lamb = 140;
 
 
 %liczba regulatorów
-il = 4;
+il = 5;
 lamb = lamb*ones(1,il);
 
 

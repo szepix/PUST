@@ -1,0 +1,180 @@
+2 regulatory:
+err =
+
+   3.0939e+03
+%% Parametry Regulatora 1
+
+Kp1 = 0.19;
+Ti1 = 1;
+Td1 = 9;
+
+%% Parametry Regulatora 2
+
+Kp2 = 0.01;
+Ti2 = 0.6;
+Td2 = 8;
+3 regulatory:
+err =
+
+   2.7848e+03
+%% Parametry Regulatora 1
+
+Kp1 = 1.5;
+Ti1 = 1;
+Td1 = 9;
+
+%% Parametry Regulatora 2
+
+Kp2 = 0.01;
+Ti2 = 0.6;
+Td2 = 8;
+
+
+%% Parametry Regulatora 3
+
+Kp3 = 0.25;
+Ti3 = 0.8;
+Td3 = 3;
+
+4 regulatory:
+err =
+
+   2.4285e+03
+
+%% Parametry Regulatora 1
+
+Kp1 = 1.4;
+Ti1 = 0.5;
+Td1 = 2;
+
+%% Parametry Regulatora 2
+
+Kp2 = 0.02;
+Ti2 = 0.9;
+Td2 = 8;
+
+
+%% Parametry Regulatora 3
+
+Kp3 = 0.06;
+Ti3 = 2;
+Td3 = 3;
+
+%% Parametry Regulatora 4
+
+Kp4 = 0.03;
+Ti4 = 0.3;
+Td4 = 1;
+
+5 regulatorow:
+
+DUZY BLAD LADNA REGULACJA:
+err =
+
+   4.4811e+03
+%% Parametry Regulatora 1
+
+Kp1 = 1.4;
+Ti1 = 0.5;
+Td1 = 2;
+
+%% Parametry Regulatora 2
+
+Kp2 = 0.02;
+Ti2 = 0.5;
+Td2 = 8;
+
+
+%% Parametry Regulatora 3
+
+Kp3 = 0.06;
+Ti3 = 1;
+Td3 = 2;
+
+%% Parametry Regulatora 4
+
+Kp4 = 0.01;
+Ti4 = 2.5;
+Td4 = 1;
+
+
+%% Parametry Regulatora 5
+
+Kp5 = 0.03;
+Ti5 = 2.2;
+Td5 = 1;
+
+MALY BLAD TAKA SE REGULACJA:
+err =
+
+   2.3954e+03
+%% Parametry Regulatora 1
+
+Kp1 = 1.4;
+Ti1 = 0.5;
+Td1 = 2;
+
+%% Parametry Regulatora 2
+
+Kp2 = 0.02;
+Ti2 = 0.5;
+Td2 = 8;
+
+
+%% Parametry Regulatora 3
+
+Kp3 = 0.06;
+Ti3 = 1;
+Td3 = 2;
+
+%% Parametry Regulatora 4
+
+Kp4 = 0.01;
+Ti4 = 1.5;
+Td4 = 1;
+
+
+%% Parametry Regulatora 5
+
+Kp5 = 0.03;
+Ti5 = 0.1;
+Td5 = 1;
+
+
+PID ZWYKŁY:
+
+err =
+
+   2.0983e+04
+%% Parametry Regulatora
+
+Kp = 1;
+Ti = 8;
+Td = 2;
+
+err =
+
+   1.9434e+04
+
+%% Parametry Regulatora
+
+Kp = 1;
+Ti = 8;
+Td = 1;
+
+%% Parametry Regulatora
+
+err =
+
+   7.6984e+03
+%% Parametry Regulatora
+
+Kp = 1;
+Ti = 4;
+Td = 1;
+err =
+
+   3.5074e+03
+Kp = 0.25;
+Ti = 4;
+Td = 1;

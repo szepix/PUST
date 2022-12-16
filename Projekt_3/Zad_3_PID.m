@@ -31,9 +31,10 @@ y_zad(600:kk) = 5;
 
 %% Parametry Regulatora
 
-Kp = 2;
-Ti = 0.5;
-Td = 0.05;
+Kp = 0.25;
+Ti = 4;
+Td = 1;
+
 
 r0 = Kp*(1 + T/(2*Ti) + Td/T);
 r1 = Kp*(T/(2*Ti) - (2*Td)/T -1);
@@ -70,7 +71,7 @@ hold on
 stairs(1:kk,y_zad,"--")
 hold off
 legend("y(k)","y_z_a_d(k)")
-title("Odpowiedź obiektu na regulację z regulatorem PID"  + newline + "K = " + Kp + " Ti = " + Ti + " Td = " + Td + "  error = " + err );
+title("Odpowiedz obiektu na regulacje z regulatorem PID"  + newline + "K = " + Kp + " Ti = " + Ti + " Td = " + Td + "  error = " + err );
 name = sprintf("PID_%f_%f_%f_przeb.pdf",Kp,Ti,Td);
 if sav
     exportgraphics(gca,name);

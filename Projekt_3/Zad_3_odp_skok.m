@@ -3,7 +3,7 @@ clear all
 %% Inicjalizacja zmienych
 
 T = 0.5; %Czas próbkowania
-t_sym = 60; %Czas symulacji (w sekundach)
+t_sym = 200; %Czas symulacji (w sekundach)
 
 kp = 7; %Krok początkowy startu symulacji
 kk = t_sym/T; %Krok końcowy

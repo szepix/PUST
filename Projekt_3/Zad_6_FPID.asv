@@ -1,7 +1,7 @@
 clear all; clc
 
-draw = true;
-sa = true;
+draw = false;
+sa = false;
 
 
 %% Inicjalizacja zmienych
@@ -82,7 +82,7 @@ Td1 = 2;
 %% Parametry Regulatora 2
 
 Kp2 = 0.02;
-Ti2 = 0.5;
+Ti2 = 0.;
 Td2 = 8;
 
 
@@ -104,9 +104,6 @@ Td4 = 1;
 Kp5 = 0.03;
 Ti5 = 0.1;
 Td5 = 1;
-
-
-
 
 
 
@@ -199,8 +196,8 @@ hold on
 stairs(1:kk,y_zad,"--")
 hold off
 legend("y(k)","y_z_a_d(k)")
-title("Odpowiedz obiektu na regulacje z rozmytym regulatorem PID");
-name = sprintf("PIDF_%f_%f_%f_przeb_5reg_brzydkie.pdf",Kp1,Kp2,Kp3);
+title("Odpowiedź obiektu na regulację z rozmytym regulatorem PID");
+name = sprintf("PIDF_%f_%f_%f_przeb.pdf",Kp1,Kp2,Kp3);
 if sa
     exportgraphics(gca,name);
 end
@@ -210,7 +207,7 @@ stairs(iteracja, U)
 title("Sterowanie rozmytego regulatora PID");
 xlabel('k'); ylabel("u");
 % legend("Sterowanie regulatora", "Location", "best")
-name = sprintf("PIDF_%f_%f_%f_ster_5reg_brzydkie.pdf",Kp1,Kp2,Kp3);
+name = sprintf("PIDF_%f_%f_%f_ster.pdf",Kp1,Kp2,Kp3);
 end
 if sa
     exportgraphics(gca,name)
