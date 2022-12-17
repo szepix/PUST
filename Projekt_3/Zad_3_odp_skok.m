@@ -19,13 +19,14 @@ for k = kp:kk
     Y(k) = symulacja_obiektu1y_p3(U(k-5),U(k-6),Y(k-1),Y(k-2));
 end
 
+s = Y(kp+1:end);
+
 %% Plot
 set(0,'DefaultStairLineWidth',1);
-stairs(1:kk,Y)
+stairs(s)
 xlabel("k")
 ylabel("y")
 set(get(gca,'ylabel'),'rotation',0)
 title("Skok jednostkowy")
-save("odp_skok.mat", "Y");
-% ylim([3.4, 4.6])
+% save("odp_skok.mat", "s");
 % exportgraphics(gca,'skok_jedn.pdf')
