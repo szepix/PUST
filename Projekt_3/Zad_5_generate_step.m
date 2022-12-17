@@ -2,7 +2,7 @@ function [s] = Zad_5_generate_step(u_pp)
 
 %% Wymierzanie skoku jednostkowego
 
-pl = false;
+pl = true;
 
 D = 100;
 

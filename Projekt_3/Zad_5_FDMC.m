@@ -2,7 +2,7 @@ clear; clc;
 
 %% Parametry programu
 draw = true;
-sa = true;
+sa = false;
 draw_f_przyn = false;
 
 set(0,'DefaultStairLineWidth',1);
