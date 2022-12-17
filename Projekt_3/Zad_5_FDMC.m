@@ -1,25 +1,23 @@
+
 clear; clc;
 
 %% Parametry programu
 draw = true;
 sa = false;
-draw_f_przyn = false;
+draw_f_przyn = true;
 
 set(0,'DefaultStairLineWidth',1);
-DUmax = 1;
-Umax = 120;
-Umin = 0;
 
 %% Parametry regulatora
 D = 100;
-N = 50;
-Nu = 8;
+N = 100;
+Nu = 100;
 
-lamb = 45;
+lamb = 1;
 
 
 %liczba regulatorów
-il = 5;
+il = 2;
 lamb = lamb*ones(1,il);
 
 
@@ -40,7 +38,7 @@ DUmin = -0.01;
 kp = D+1;
 kk = kp+800;
 
-U(1:kp,1) = Upp;
+U(1:kp+1,1) = Upp;
 Y(1:kp,1) = Ypp;
 e(1:kp) = 0;
 
@@ -81,7 +79,7 @@ if draw_f_przyn
             plot(u,gaussmf(u,[spread, ur0(i)]));        
         end
     end
-    xlabel("u"); ylabel("Funkcja przynależności");
+    xlabel("u"); ylabel("Funkcja przynalezności");
     title(sprintf("Funkcja przynaleznosci dla %i zbiorów rozmytych",il))
     hold off
 end
@@ -119,6 +117,7 @@ for r = 1:il
     K = ((M'*M + lamb(r) * eye(Nu))^(-1))* M';
     ku(r,:) = K(1,:)*MP;
     ke(r) = sum(K(1,:));
+
 end
 
 %% Symulacja obiektu

@@ -2,12 +2,15 @@ function [s] = Zad_5_generate_step(u_pp)
 
 %% Wymierzanie skoku jednostkowego
 
-pl = true;
+pl = false;
 
 D = 100;
 
 %skok wartosci F1
-du = 0.02;
+du = u_pp;
+if du == 0
+    du = 0.1;
+end
 
 t_sym = 220; %czas symulacji
 
@@ -18,7 +21,7 @@ T = 0.5; %Czas próbkowania
 kp = 8; %Krok początkowy startu symulacji
 kk = t_sym/T; %Krok końcowy
 
-Upp = u_pp;
+Upp = 0;
 Ypp = 0;
 
 U(1:kk,1) = Upp;
