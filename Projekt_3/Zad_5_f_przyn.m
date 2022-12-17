@@ -2,9 +2,9 @@ clear all
 clc
 
 %Parametry programu
-il = 3; %ilość regulatorów
+il = 5; %ilość regulatorów
 draw = true;
-sa = false;
+sa = true;
 
 %Zmienne zadaniowe
 u_min = -1;
@@ -39,7 +39,7 @@ if draw
     xlabel("u"); ylabel("Funkcja przynależności");
     title(sprintf("Funkcja przynaleznosci dla %i zbiorów rozmytych",il))
     if sa
-        print(sprintf('funkcja_przynelznosci_%i.png',il_fun),'-dpng','-r400')
+        print(sprintf('funkcja_przynelznosci_%i.png',il),'-dpng','-r400')
     end
 end
 

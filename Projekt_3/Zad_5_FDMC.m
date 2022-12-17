@@ -3,21 +3,21 @@ clear; clc;
 
 %% Parametry programu
 draw = true;
-sa = false;
-draw_f_przyn = true;
+sa = true;
+draw_f_przyn = false;
 
 set(0,'DefaultStairLineWidth',1);
 
 %% Parametry regulatora
 D = 100;
-N = 100;
-Nu = 100;
+N = 12;
+Nu = 6;
 
-lamb = 1;
+lamb = 5.5;
 
 
 %liczba regulatorów
-il = 2;
+il = 5;
 lamb = lamb*ones(1,il);
 
 
