@@ -1,0 +1,34 @@
+//Init
+DMCK11:=0.466663214456430;
+DMCK12:=-0.0231551399655236;
+DMCK21:=0.159622206605985;
+DMCK22:=0.560576696994835;
+FOR licznik:=0 TO 858 BY 1 DO
+Kdu[licznik]:=0.0;
+END_FOR;
+
+
+
+//Petlaregulacji
+//DMC
+dU1:=DMCK11∗(Yzad1−T1odczyt)+DMCK12∗(Yzad2−T3odczyt);
+dU2:=DMCK21∗(Yzad1−T1odczyt)+DMCK22∗(Yzad2−T3odczyt);
+dU1:=dU1/100.0;
+dU2:=dU2/100.0;
+temp1:=dU1;
+temp2:=dU2;
+FORlicznik:=0 TO 858 BY 1 DO
+dU1:=dU1−Ku1[licznik]∗Kdu[licznik];
+dU2:=dU2−Ku2[licznik]∗Kdu[licznik];
+END_FOR;
+FOR licznik:=858 TO 2 BY−1 DO
+Kdu[licznik]:=Kdu[licznik−2];
+END_FOR;
+Kdu[0]:=dU1;
+Kdu[1]:=dU2;
+U1:=(U1A/10+dU1)∗10;
+U2:=(U2A/10+dU2)∗10;
+U1A:=U1;
+U2A:=U2;
+D114:=REAL_TO_INT(U1A);
+D115:=REAL_TO_INT(U2A);
