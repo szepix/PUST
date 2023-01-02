@@ -1,0 +1,20 @@
+dmc2:
+D = 110; %tak wychodzi mniej wiecej z rysunkow 
+N = 40
+Nu = 10
+lamb = 1
+dmc3:
+D = 110; %tak wychodzi mniej wiecej z rysunkow 
+N = 110;
+Nu = 110;
+lamb = 1
+dmc4:
+D = 110; %tak wychodzi mniej wiecej z rysunkow 
+N = 110;
+Nu = 110;
+lamb = 10;
+DMC5:
+D = 110; %tak wychodzi mniej wiecej z rysunkow 
+N = 110;
+Nu = 1;
+lamb= 10;

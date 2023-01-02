@@ -43,21 +43,21 @@ ny = 2;
 lambda = [ 1 1];
 psi = [ 1 1 ];
 D = 430; %tak wychodzi mniej wiecej z rysunkow 
-N = 40;
+N = 140;
 Nu = 40;
 % [Ke15, Ku15] = gen_DMC_cheap(nu,ny,lambda,psi,s15,N,Nu,D);
 [Ke30, Ku30] = gen_DMC_cheap(nu,ny,lambda,psi,s,N,Nu,D);
 
 for i = 1 :length(Ku30)
     format longG
-    Ku1 = "Ku1["+i+"] :=" + sprintf('%.6f',Ku30(1,i)) +";";
-%     dlmwrite('KU1.txt', Ku1, '-append');
-    writelines(Ku1,"KU1.txt",WriteMode="append");
+    Ku1 = "Ku1["+(i-1)+"] :=" + sprintf('%.6f',Ku30(1,i)) +";";
+    dlmwrite('KU1.txt', Ku1, '-append');
+%     writelines(Ku1,"KU1.txt",'WriteMode',"append");
 end
 
 for i = 1 :length(Ku30)
     format longG
-    Ku2 = "Ku2["+i+"] :=" +sprintf('%.6f',Ku30(2,i)) + ";";
-%     dlmwrite('KU2.txt', Ku2, '-append');
-writelines(Ku2,"KU2.txt",WriteMode="append");
+    Ku2 = "Ku2["+(i-1)+"] :=" +sprintf('%.6f',Ku30(2,i)) + ";";
+    dlmwrite('KU2.txt', Ku2, '-append');
+% writelines(Ku2,"KU2.txt",'WriteMode',"append");
 end

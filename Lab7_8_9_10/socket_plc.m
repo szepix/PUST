@@ -30,10 +30,10 @@ while (length(y1) < 1000)
         y2 = [y2; Y2];
         yz1 = [yz1; YZ1];
         yz2 = [yz2; YZ2];
-%         dlmwrite('Y1_skok_u2_20.txt', Y1, '-append');
-%         dlmwrite('Y2_skok_u2_20.txt', Y2, '-append');
-%         dlmwrite('U1_skok_u2_20.txt', U1, '-append');
-%         dlmwrite('U2_skok_u2_20.txt', U2, '-append');
+%         dlmwrite('Y1_DMC6.txt', Y1, '-append');
+%         dlmwrite('Y2_DMC6.txt', Y2, '-append');
+%         dlmwrite('U1_DMC6.txt', U1, '-append');
+%         dlmwrite('U2_DMC6.txt', U2, '-append');
         subplot(2,1,1); plot(y1); hold on; plot(y2); hold off; title('Wyjœcie'); xlabel('iteracja');
         legend(["Y1", "Y2"], "Location", 'bestoutside');
         subplot(2,1,2); stairs(u1); hold on; stairs(u2); hold off; title('Sterowanie'); xlabel('iteracja');
